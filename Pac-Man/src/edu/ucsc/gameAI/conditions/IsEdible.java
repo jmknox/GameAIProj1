@@ -1,8 +1,9 @@
 package edu.ucsc.gameAI.conditions;
 
 import edu.ucsc.gameAI.ICondition;
-import pacman.game.Constants.GHOST;
 import pacman.game.Game;
+import pacman.game.Constants.GHOST;
+
 
 public class IsEdible implements ICondition {
 	
