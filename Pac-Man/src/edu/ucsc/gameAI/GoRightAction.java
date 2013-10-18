@@ -1,8 +1,8 @@
 package edu.ucsc.gameAI;
 
-import pacman.game.Constants.MOVE;
-import pacman.game.Game;
 import edu.ucsc.gameAI.decisionTrees.binary.IBinaryNode;
+import pacman.game.Game;
+import pacman.game.Constants.MOVE;
 
 public class GoRightAction implements IAction, IBinaryNode {
 
@@ -10,16 +10,9 @@ public class GoRightAction implements IAction, IBinaryNode {
 		// TODO Auto-generated method stub
 		
 	}
-
-	@Override
-	public IAction makeDecision(Game game) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public MOVE getMove() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	public IAction makeDecision(Game game) {return this;}
+	
+	public MOVE getMove() {return MOVE.RIGHT;}
+	
 }

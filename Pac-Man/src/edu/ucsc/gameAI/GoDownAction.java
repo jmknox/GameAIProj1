@@ -4,7 +4,7 @@ import edu.ucsc.gameAI.decisionTrees.binary.IBinaryNode;
 import pacman.game.Game;
 import pacman.game.Constants.MOVE;
 
-public class GoLeftAction implements IAction, IBinaryNode {
+public class GoDownAction implements IAction, IBinaryNode {
 
 	public void doAction() {
 		// TODO Auto-generated method stub
@@ -13,6 +13,5 @@ public class GoLeftAction implements IAction, IBinaryNode {
 	
 	public IAction makeDecision(Game game) {return this;}
 	
-	public MOVE getMove() {return MOVE.LEFT;}
-	
+	public MOVE getMove() {return MOVE.DOWN;}
 }
