@@ -35,9 +35,9 @@ import edu.ucsc.gameAI.*;
 import edu.ucsc.gameAI.conditions.*;
 import edu.ucsc.gameAI.decisionTrees.binary.BinaryDecision;
 import edu.ucsc.gameAI.fsm.*;
-import edu.ucsc.gameAI.hfsm.HFSM;
-import edu.ucsc.gameAI.hfsm.HState;
-import edu.ucsc.gameAI.hfsm.HTransition;
+//import edu.ucsc.gameAI.hfsm.HFSM;
+//import edu.ucsc.gameAI.hfsm.HState;
+//import edu.ucsc.gameAI.hfsm.HTransition;
 import edu.ucsc.gameAI.hfsm.IHFSM;
 import edu.ucsc.gameAI.hfsm.IHState;
 import edu.ucsc.gameAI.hfsm.IHTransition;
@@ -109,7 +109,8 @@ public class Evaluator
 		fsm = new StateMachine();
 		fsm.setCurrentState(stateChase);
 		
-		//create hfsm
+		//create hfsm 
+		/*
 		hfsm = new HFSM();
 		upIsUp = new HFSM();
 		upIsDown = new HFSM();
@@ -163,6 +164,7 @@ public class Evaluator
 		downDownUD = new HTransition(upUD, new PacmanLastMove(MOVE.DOWN));
 		downUD.addTransition(downDownUD);
 		
+		
 		//add the states to the FSM.
 		statesLR.add(upIsUp);
 		statesLR.add(upIsDown);
@@ -183,6 +185,7 @@ public class Evaluator
 		
 		// for testing hfsm
 		bLeftState = true;
+		*/
 	}
 	
     // could be a function run every frame of runExperiment, accepting game as a parameter
@@ -255,7 +258,7 @@ public class Evaluator
 		// Ms Pac ManState Conditions
 		if (!(new CurrentPacmanNodeIndex(game.getPacmanCurrentNodeIndex())).test(game))
 			System.out.println("CurrentPacmanNodeIndex failed");
-		if (!(new NumberOfLivesRemaining(game.getPacmanNumberOfLivesRemaining()).test(game)))
+		if (!(new NumberOfLivesRemaining(0, game.getPacmanNumberOfLivesRemaining()).test(game)))
 			System.out.println("NumberOfLivesRemaining failed");
 		if (!(new PacmanLastMove(game.getPacmanLastMoveMade()).test(game)))
 			System.out.println("PacmanLastMove failed");
@@ -320,6 +323,7 @@ public class Evaluator
 		}
 			
 		// hfsm
+		/*
 		boolean bCheck = true;
 		actions = hfsm.update(game).getActions();
 		if (game.getPacmanLastMoveMade() == MOVE.LEFT && !bLeftState)
@@ -365,7 +369,7 @@ public class Evaluator
 						System.out.println("HFSM fail 4");
 				}
 			}
-		}
+		}*/
 		
 		// actions
 		if (!(new GoUpAction().getClass() == GoUpAction.class))
@@ -376,6 +380,7 @@ public class Evaluator
 			System.out.println("GoRightAction failed");
 		if (!(new GoDownAction().getClass() == GoDownAction.class))
 			System.out.println("GoDownAction failed");
+			
 		
 		
 		

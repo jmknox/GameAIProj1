@@ -1,5 +1,6 @@
 package edu.ucsc.gameAI.fsm;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import pacman.game.Game;
@@ -15,7 +16,6 @@ public class StateMachine implements IStateMachine {
 	// Holds the current state
 	IState currentState = initialState;
 
-	@SuppressWarnings("null")
 	@Override
 	public Collection<IAction> update(Game game) {
 		// Assume no transition is triggered
@@ -29,7 +29,7 @@ public class StateMachine implements IStateMachine {
 			}
 		}
 		
-		Collection<IAction> actions = null;
+		Collection<IAction> actions = new ArrayList<IAction>();
 		
 		// Check if we have a transition to fire
 		if(triggeredTransition != null){
