@@ -1,4 +1,3 @@
-//help
 package edu.ucsc.gameAI.conditions;
 
 import edu.ucsc.gameAI.ICondition;
@@ -14,7 +13,8 @@ public class LevelCount implements ICondition{
 	}
 	
 	public boolean test(Game game){
-		return true;
+		int level = game.getCurrentLevel();
+		return level == llevel;
 	}
 	
 }

@@ -1,4 +1,3 @@
-//Help
 package edu.ucsc.gameAI.conditions;
 
 import edu.ucsc.gameAI.ICondition;
@@ -12,7 +11,8 @@ public class MazeIndex implements ICondition{
 	}
 	
 	public boolean test(Game game){
-		return true;
+		int index = game.getMazeIndex();
+		return iindex == index;
 	}
 	
 }
