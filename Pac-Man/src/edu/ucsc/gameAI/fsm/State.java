@@ -1,10 +1,15 @@
 package edu.ucsc.gameAI.fsm;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import edu.ucsc.gameAI.IAction;
 
 public class State implements IState  {
+	
+	public State(){
+		this.transitions = new ArrayList<ITransition>();
+	}
 
 	IAction action;
 	@Override
