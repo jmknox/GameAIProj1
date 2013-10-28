@@ -47,11 +47,13 @@ public class StateMachine implements IStateMachine {
 			
 			//Complete the transition and return the action list
 			currentState = targetState;
+			System.out.println("triggered transition");
 			return actions;
 		}
 		
 		// Otherwise just return the current state's actions
 		actions.add(currentState.getAction());
+		System.out.println("no triggered transition");
 		return actions;
 	}
 

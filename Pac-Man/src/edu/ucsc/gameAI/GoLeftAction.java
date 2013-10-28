@@ -18,4 +18,10 @@ public class GoLeftAction implements IAction, IBinaryNode {
 	public MOVE getMove() {
 		return MOVE.LEFT;
 	}
+
+	@Override
+	public MOVE getMove(Game game) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

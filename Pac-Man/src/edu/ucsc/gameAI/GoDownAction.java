@@ -14,4 +14,10 @@ public class GoDownAction implements IAction, IBinaryNode {
 	public IAction makeDecision(Game game) {return this;}
 	
 	public MOVE getMove() {return MOVE.DOWN;}
+
+	@Override
+	public MOVE getMove(Game game) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

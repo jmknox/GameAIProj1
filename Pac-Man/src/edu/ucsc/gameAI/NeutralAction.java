@@ -20,4 +20,10 @@ public class NeutralAction implements IAction, IBinaryNode {
 	public MOVE getMove() {
 		return MOVE.NEUTRAL;
 	}
+
+	@Override
+	public MOVE getMove(Game game) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -3,10 +3,11 @@ package pacman.entries.pacman;
 import pacman.controllers.Controller;
 import pacman.game.Constants.MOVE;
 import pacman.game.Game;
-
+import edu.ucsc.gameAI.*;
 import edu.ucsc.gameAI.fsm.*;
 import edu.ucsc.gameAI.conditions.*;
 
+import java.util.Collection;
 import java.util.LinkedList;
 
 /*
@@ -31,24 +32,28 @@ public class MyPacMan extends Controller<MOVE>
 	
 	public MOVE getMove(Game game, long timeDue) 
 	{
+		int current=game.getPacmanCurrentNodeIndex();
+		int pacX = game.getNodeXCood(current);
+		int pacY = game.getNodeYCood(current);
+		
 		//create fsm
 		getPills = new State();
-		getPills.setAction(null);
+		getPills.setAction(new SeekPills());
 		
 		avoidGhosts = new State();
-		avoidGhosts.setAction(null);
+		avoidGhosts.setAction(new FleeGhosts());
 		
 		eatGhosts = new State();
-		eatGhosts.setAction(null);
+		eatGhosts.setAction(new GoUpAction());
 		
 		transPills = new Transition();
-		transPills.setCondition(null);
+		transPills.setCondition(new PillInRegion(pacX-10,pacY-10,pacX+10,pacY+10));
 		transPills.setTargetState(getPills);
 		listtpills = new LinkedList<ITransition>();
 		listtpills.add(transPills);
 		
 		transAvoid = new Transition();
-		transAvoid.setCondition(new GhostInRegion(20,20,20,20));
+		transAvoid.setCondition(new GhostInRegion(pacX-1,pacY-1,pacX+1,pacY+1));
 		transAvoid.setTargetState(avoidGhosts);
 		listtavoid = new LinkedList<ITransition>();
 		listtavoid.add(transAvoid);
@@ -59,8 +64,16 @@ public class MyPacMan extends Controller<MOVE>
 		listteat = new LinkedList<ITransition>();
 		listteat.add(transEat);
 		
+		getPills.setTransitions(listtpills);
+		avoidGhosts.setTransitions(listtavoid);
+		eatGhosts.setTransitions(listteat);
+		
 		fsm = new StateMachine();
 		fsm.setCurrentState(getPills);
+		
+		Collection<IAction> actions = fsm.update(game);
+		if(actions.iterator().hasNext()) myMove = actions.iterator().next().getMove(game);
+		System.out.println(myMove);
 		
 		return myMove;
 	}
