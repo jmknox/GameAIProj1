@@ -27,53 +27,85 @@ public class MyPacMan extends Controller<MOVE>
 	Transition transEat;
 	LinkedList<ITransition> listteat;
 	StateMachine fsm;
+	int prevlives = 3;
 	
 	private MOVE myMove=MOVE.NEUTRAL;
 	
+	public MyPacMan(){
+		//create fsm
+				getPills = new State();
+				getPills.setName("getPills");
+				getPills.setAction(new SeekPills());
+				
+				avoidGhosts = new State();
+				avoidGhosts.setName("avoidGhosts");
+				avoidGhosts.setAction(new FleeGhosts());
+				//avoidGhosts.setEntryAction(new Reverse());
+				
+				eatGhosts = new State();
+				eatGhosts.setName("eatGhosts");
+				eatGhosts.setAction(new EatGhosts());
+				
+				//transition to get pills when pills in region and ghosts are not
+				transPills = new Transition();
+				transPills.setName("transPills");
+				//transPills.setCondition(new AndCondition(new NotCondition(new GhostStillEdible()), 
+				//										new NotCondition(new GhostInRegion(0,0,0,0))));
+				transPills.setTargetState(getPills);
+				transPills.setAction(new SeekPills());
+			
+				//transition to avoid ghosts when ghosts in area
+				transAvoid = new Transition();
+				transAvoid.setName("transAvoid");
+				//transAvoid.setCondition(new AndCondition(new NotCondition(new GhostStillEdible()),
+				//						new GhostInRegion(0,0,0,0)));
+				transAvoid.setTargetState(avoidGhosts);
+				transAvoid.setAction(new FleeGhosts());
+				
+				//transition to eat ghosts when ppill eaten
+				transEat = new Transition();
+				transEat.setName("transEat");
+				transEat.setCondition(new PowerPillWasEaten());
+				transEat.setTargetState(eatGhosts);
+				transEat.setAction(new EatGhosts());
+				
+				listtpills = new LinkedList<ITransition>();
+				listtavoid = new LinkedList<ITransition>();
+				listteat = new LinkedList<ITransition>();
+				
+				listtpills.add(transAvoid);
+				listtpills.add(transEat);
+				listtavoid.add(transPills);
+				listtavoid.add(transEat);
+				listteat.add(transAvoid);
+				listteat.add(transPills);
+				
+				getPills.setTransitions(listtpills);
+				avoidGhosts.setTransitions(listtavoid);
+				eatGhosts.setTransitions(listteat);
+				
+				fsm = new StateMachine();
+				fsm.setCurrentState(getPills);
+	}
+	
 	public MOVE getMove(Game game, long timeDue) 
 	{
+		if(prevlives > game.getPacmanNumberOfLivesRemaining()){
+			fsm.setCurrentState(getPills);
+			prevlives--; 
+		}
 		int current=game.getPacmanCurrentNodeIndex();
 		int pacX = game.getNodeXCood(current);
 		int pacY = game.getNodeYCood(current);
 		
-		//create fsm
-		getPills = new State();
-		getPills.setAction(new SeekPills());
+		transPills.setCondition(new AndCondition(new NotCondition(new GhostStillEdible()),
+								new NotCondition(new GhostInRegion(pacX-6,pacY-6,pacX+6,pacY+6))));
 		
-		avoidGhosts = new State();
-		avoidGhosts.setAction(new FleeGhosts());
-		
-		eatGhosts = new State();
-		eatGhosts.setAction(new GoUpAction());
-		
-		transPills = new Transition();
-		transPills.setCondition(new PillInRegion(pacX-10,pacY-10,pacX+10,pacY+10));
-		transPills.setTargetState(getPills);
-		listtpills = new LinkedList<ITransition>();
-		listtpills.add(transPills);
-		
-		transAvoid = new Transition();
-		transAvoid.setCondition(new GhostInRegion(pacX-1,pacY-1,pacX+1,pacY+1));
-		transAvoid.setTargetState(avoidGhosts);
-		listtavoid = new LinkedList<ITransition>();
-		listtavoid.add(transAvoid);
-		
-		transEat = new Transition();
-		transEat.setCondition(new PowerPillWasEaten());
-		transEat.setTargetState(eatGhosts);
-		listteat = new LinkedList<ITransition>();
-		listteat.add(transEat);
-		
-		getPills.setTransitions(listtpills);
-		avoidGhosts.setTransitions(listtavoid);
-		eatGhosts.setTransitions(listteat);
-		
-		fsm = new StateMachine();
-		fsm.setCurrentState(getPills);
+		transAvoid.setCondition(new AndCondition(new NotCondition(new GhostStillEdible()),
+								new GhostInRegion(pacX-6,pacY-6,pacX+6,pacY+6)));
 		
 		Collection<IAction> actions = fsm.update(game);
 		if(actions.iterator().hasNext()) myMove = actions.iterator().next().getMove(game);
-		System.out.println(myMove);
 		
 		return myMove;
 	}

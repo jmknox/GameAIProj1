@@ -29,13 +29,18 @@ public class FleeGhosts implements IAction, IBinaryNode {
 
 	@Override
 	public MOVE getMove(Game game) {
+		//System.out.println("checking for ghost move");
 		int current=game.getPacmanCurrentNodeIndex();
 		
 		//Strategy 1: if any non-edible ghost is too close (less than MIN_DISTANCE), run away
 		for(GHOST ghost : GHOST.values())
-			if(game.getGhostEdibleTime(ghost)==0 && game.getGhostLairTime(ghost)==0)
-				if(game.getShortestPathDistance(current,game.getGhostCurrentNodeIndex(ghost))<MIN_DISTANCE)
+			if(game.getGhostEdibleTime(ghost)==0 && game.getGhostLairTime(ghost)==0){
+				//System.out.println("Ghost chasing");
+				if(game.getShortestPathDistance(current,game.getGhostCurrentNodeIndex(ghost))<MIN_DISTANCE){
+					//System.out.println("Ghost within distance");
 					return game.getNextMoveAwayFromTarget(game.getPacmanCurrentNodeIndex(),game.getGhostCurrentNodeIndex(ghost),DM.PATH);
+				}
+			}
 		return MOVE.NEUTRAL;
 	}
 

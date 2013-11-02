@@ -6,6 +6,7 @@ import java.util.Collection;
 import edu.ucsc.gameAI.IAction;
 
 public class State implements IState  {
+	String name;
 	
 	public State(){
 		this.transitions = new ArrayList<ITransition>();
@@ -56,6 +57,18 @@ public class State implements IState  {
 	@Override
 	public void setTransitions(Collection<ITransition> trans) {
 		this.transitions = trans;
+		
+	}
+
+	@Override
+	public void setName(String name) {
+		this.name = name;
+		
+	}
+
+	@Override
+	public String getName() {
+		return name;
 		
 	}
 

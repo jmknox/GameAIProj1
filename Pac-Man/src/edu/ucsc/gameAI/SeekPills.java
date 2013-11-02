@@ -49,8 +49,11 @@ public class SeekPills implements IAction, IBinaryNode {
 		for(int i=0;i<targetsArray.length;i++)
 			targetsArray[i]=targets.get(i);
 		
+		MOVE mmove = game.getNextMoveTowardsTarget(current,game.getClosestNodeIndexFromNodeIndex(current,targetsArray,DM.PATH),DM.PATH);
+		//if(mmove == MOVE.UP && )
+		
 		//return the next direction once the closest target has been identified
-		return game.getNextMoveTowardsTarget(current,game.getClosestNodeIndexFromNodeIndex(current,targetsArray,DM.PATH),DM.PATH);
+		return mmove;
 	}
 	
 

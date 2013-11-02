@@ -23,6 +23,7 @@ public class StateMachine implements IStateMachine {
 		
 		// Check through each transition and store the first one that triggers
 		for(ITransition transition : currentState.getTransitions()){
+			//System.out.println("Checking " + transition.getName() +" in " + currentState.getName());
 			if(transition.isTriggered(game)){
 				triggeredTransition = transition;
 				break;
@@ -33,27 +34,32 @@ public class StateMachine implements IStateMachine {
 		
 		// Check if we have a transition to fire
 		if(triggeredTransition != null){
+			//System.out.println("Triggered transition " + triggeredTransition.getName());
 			// Find the target state
 			IState targetState = triggeredTransition.getTargetState();
 			
+			//System.out.println(currentState.getName() + " transitioning to " + targetState.getName());
+			
 			// Add the exit action of the old state, the transition action
 			// and the entry for the new state
-			if(currentState.getExitAction() != null)
+			if(currentState.getExitAction() != null){
 				actions.add(currentState.getExitAction());
-			if(triggeredTransition.getAction() != null)
+			}
+			if(triggeredTransition.getAction() != null){
 				actions.add(triggeredTransition.getAction());
-			if(targetState.getEntryAction() != null)
+			}
+			if(targetState.getEntryAction() != null){
 				actions.add(targetState.getEntryAction());
+			}
 			
 			//Complete the transition and return the action list
 			currentState = targetState;
-			System.out.println("triggered transition");
+			//System.out.println("Now in " + )
 			return actions;
 		}
 		
 		// Otherwise just return the current state's actions
 		actions.add(currentState.getAction());
-		System.out.println("no triggered transition");
 		return actions;
 	}
 

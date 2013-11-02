@@ -7,6 +7,10 @@ import edu.ucsc.gameAI.ICondition;
 public class Transition implements ITransition {
 
 	IState targetState;
+	public Transition(){
+		
+	}
+	
 	@Override
 	public IState getTargetState() {
 		return targetState;
@@ -40,6 +44,19 @@ public class Transition implements ITransition {
 	@Override
 	public boolean isTriggered(Game game) {
 		return condition.test(game);
+	}
+	
+	String name;
+	@Override
+	public void setName(String name) {
+		this.name = name;
+		
+	}
+
+	@Override
+	public String getName() {
+		return name;
+		
 	}
 
 }
