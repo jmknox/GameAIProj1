@@ -30,5 +30,11 @@ public class ChasePacManAction implements IAction, IBinaryNode {
 			game.getPacmanCurrentNodeIndex(),game.getGhostLastMoveMade(gghost),DM.PATH);
 		return move;
 	}
+
+	@Override
+	public MOVE getMove(Game game) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -47,7 +47,4 @@ public interface ITransition {
 	 * @return True if triggered, false if not.
 	 */
 	public boolean isTriggered(Game game);
-	
-	public void setName(String name);
-	public String getName();
 }

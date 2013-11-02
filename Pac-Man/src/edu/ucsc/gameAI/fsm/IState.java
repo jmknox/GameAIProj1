@@ -62,8 +62,5 @@ public interface IState {
 	 * @param trans the transitions
 	 */
 	public void setTransitions(Collection<ITransition> trans);
-	
-	public void setName(String name);
-	public String getName();
 }
 

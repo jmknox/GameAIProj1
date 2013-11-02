@@ -45,18 +45,5 @@ public class Transition implements ITransition {
 	public boolean isTriggered(Game game) {
 		return condition.test(game);
 	}
-	
-	String name;
-	@Override
-	public void setName(String name) {
-		this.name = name;
-		
-	}
-
-	@Override
-	public String getName() {
-		return name;
-		
-	}
 
 }
